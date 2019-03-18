@@ -14,7 +14,9 @@ export function TreeView({ spec, diagnostics, ...restProps }: TreeViewProps) {
           <React.Fragment key={index}>
             <li>
               {el}
-              {spec[el].constructor === Array && <Arrays array={spec[el]} />}
+              {(spec[el].constructor === Array || spec[el].constructor === Object) && (
+                <FirstNestedList array={spec[el]} />
+              )}
             </li>
           </React.Fragment>
         );
@@ -23,51 +25,37 @@ export function TreeView({ spec, diagnostics, ...restProps }: TreeViewProps) {
   );
 }
 
-interface Arrays {
-  array: any[];
+interface FirstNestedList {
+  array: any;
 }
 
-class Arrays extends React.Component<any, Arrays> {
+class FirstNestedList extends React.Component<any, FirstNestedList> {
   render() {
     return (
       <ul>
-        {this.props.array.map((el: any, index: number) => {
-          if (el.constructor === Object) {
-            return (
-              <li key={index}>
-                {index}
-                <NestedArray array={el} />
-              </li>
-            );
-          }
+        {Object.keys(this.props.array).map((el: string, index: number) => {
+          return (
+            <li key={index}>
+              {el}
+              {this.props.array[el].constructor === Object && <SecondNestedList array={this.props.array[el]} />}
+            </li>
+          );
         })}
       </ul>
     );
   }
 }
 
-interface NestedArray {
+interface SecondNestedList {
   array: any[];
 }
 
-class NestedArray extends React.Component<any, NestedArray> {
+class SecondNestedList extends React.Component<any, SecondNestedList> {
   render() {
-    console.log(this.props.array);
     return (
       <ul>
-        {Object.keys(this.props.array).map((el: any, index: number) => {
-          return (
-            <li key={index}>
-              {el}
-              {this.props.array[el].constructor === Object && (
-                <ul>
-                  {Object.keys(this.props.array[el]).map((el: any, index: number) => {
-                    return <li key={index}>{el}</li>;
-                  })}
-                </ul>
-              )}
-            </li>
-          );
+        {Object.keys(this.props.array).map((el: string, index: number) => {
+          return <li key={index}>{el}</li>;
         })}
       </ul>
     );
