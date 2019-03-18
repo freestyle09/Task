@@ -8,7 +8,7 @@ export interface TreeViewProps extends React.HTMLProps<HTMLUListElement> {
 
 export function TreeView({ spec, diagnostics, ...restProps }: TreeViewProps) {
   const keys: string[] = [...Object.keys(spec)];
-
+  console.log('Checking connection');
   return (
     <ul {...restProps}>
       {keys.map(el => (
