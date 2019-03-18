@@ -7,6 +7,7 @@ export interface TreeViewProps extends React.HTMLProps<HTMLUListElement> {
 }
 
 export function TreeView({ spec, diagnostics, ...restProps }: TreeViewProps) {
+  console.log(diagnostics);
   return (
     <ul {...restProps}>
       {Object.keys(spec).map((el, index) => {
@@ -25,13 +26,16 @@ export function TreeView({ spec, diagnostics, ...restProps }: TreeViewProps) {
 
 class NestedList extends React.Component<any> {
   render() {
+    let array = this.props.array;
     return (
       <ul>
-        {Object.keys(this.props.array).map((el: string, index: number) => {
+        {Object.keys(array).map((el: string, index: number) => {
           return (
             <li key={index}>
               {el}
-              {this.props.array[el].constructor === Object && <NestedList array={this.props.array[el]} />}
+              {(array[el].constructor === Object || array[el].constructor === Array) && (
+                <NestedList array={array[el]} />
+              )}
             </li>
           );
         })}
