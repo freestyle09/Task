@@ -7,7 +7,14 @@ export interface TreeViewProps extends React.HTMLProps<HTMLUListElement> {
 }
 
 export function TreeView({ spec, diagnostics, ...restProps }: TreeViewProps) {
-  return <NestedList array={spec} diagnostics={diagnostics} element={[]} />;
+  return (
+    <ul>
+      <li className='list-header'>
+        <h1>TreeView</h1>
+      </li>
+      <NestedList array={spec} diagnostics={diagnostics} element={[]} />
+    </ul>
+  );
 }
 
 function isOnSamePath(path: Array<string | number>, element: string[]) {
@@ -59,7 +66,7 @@ class NestedList extends React.Component<any> {
           let info = getDiagnosticInfoForParent(diagnostics, [...element, el]);
           return (
             <li key={index} className={info.getClasses()}>
-              {el}
+              <span>{el}</span>
               {(array[el].constructor === Object || array[el].constructor === Array) && (
                 <NestedList array={array[el]} diagnostics={diagnostics} element={[...element, el]} />
               )}

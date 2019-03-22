@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
+$color-white: #fff;
+$border-color: #001123;
+$border-bottom-color: #db492c;
+$bg-color-header: #004557;
+$bg-color-table: #f0dda3;
+$warning-color: orange;
+$error-color: red;
+
 * {
   margin: 0;
   padding: 0;
@@ -5,32 +15,67 @@
 }
 
 body {
-  width: 500px;
+  width: 350px;
   margin: 0 auto;
+  font: {
+    family: 'Lato', sans-serif;
+    size: 16px;
+  }
+  div#root > ul {
+    border: 5px solid $border-color;
+  }
 }
 ul {
   position: relative;
   list-style: none;
-  background-color: bisque;
-  display: table;
-  width: 100%;
-  li {
-    display: table;
+  background-color: $bg-color-table;
+  display: flex;
+  flex-direction: column;
+  li.list-header {
+    background-color: $bg-color-header;
+    border-bottom: 5px solid $border-bottom-color;
+    h1 {
+      color: $color-white;
+      padding: 10px 0;
+    }
+  }
+  > li {
     position: relative;
-    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    span {
+      padding: 5px 0;
+    }
   }
 }
+
+// Alerts
 .warn {
-  position: relative;
-  width: auto;
   &::after {
-    content: '#';
+    content: '';
     position: absolute;
     top: 0;
-    right: 0;
-    height: 50px;
-    width: 50px;
-    color: red;
-    text-align: right;
+    right: 10px;
+    height: 15px;
+    width: 15px;
+    margin: 10px 0;
+    border-radius: 100%;
+    background-color: $warning-color;
+    text-align: center;
+  }
+}
+.error {
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 35px;
+    margin: 10px 0;
+    height: 15px;
+    width: 15px;
+    border-radius: 100%;
+    background-color: $error-color;
+    text-align: center;
   }
 }
