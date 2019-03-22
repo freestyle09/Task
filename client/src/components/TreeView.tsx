@@ -14,7 +14,7 @@ interface NestedListProps extends React.HTMLProps<HTMLUListElement> {
 
 export function TreeView({ spec, diagnostics, ...restProps }: TreeViewProps) {
   return (
-    <ul>
+    <ul {...restProps}>
       <li className='list-header'>
         <h1>TreeView</h1>
       </li>
