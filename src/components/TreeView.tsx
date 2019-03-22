@@ -14,18 +14,6 @@ function isOnSamePath(path: Array<string | number>, element: string[]) {
   return element.filter((e, i) => e == path[i]).length == element.length;
 }
 
-function isParent(path: Array<string | number>, element: string[]) {
-  return path.length > element.length && isOnSamePath(path, element);
-}
-
-function hasError(diagnostics: IRuleResult[], element: string[]) {
-  return (
-    diagnostics.filter(e => {
-      return isParent(e.path, element);
-    }).length > 0
-  );
-}
-
 class NodeInfo {
   constructor(warn: boolean, error: boolean) {
     this.warn = warn;

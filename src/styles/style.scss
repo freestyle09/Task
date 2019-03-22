@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 500px;
+  margin: 0 auto;
+}
+ul {
+  position: relative;
+  list-style: none;
+  background-color: bisque;
+  display: table;
+  width: 100%;
+  li {
+    display: table;
+    position: relative;
+    margin-left: 20px;
+  }
+}
+.warn {
+  position: relative;
+  width: auto;
+  &::after {
+    content: '#';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 50px;
+    width: 50px;
+    color: red;
+    text-align: right;
+  }
+}
