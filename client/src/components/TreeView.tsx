@@ -4,6 +4,7 @@ import { IRuleResult } from '@stoplight/spectral';
 export interface TreeViewProps extends React.HTMLProps<HTMLUListElement> {
   spec: any;
   diagnostics: IRuleResult[];
+  element: any[];
 }
 
 export function TreeView({ spec, diagnostics, ...restProps }: TreeViewProps) {
@@ -12,7 +13,7 @@ export function TreeView({ spec, diagnostics, ...restProps }: TreeViewProps) {
       <li className='list-header'>
         <h1>TreeView</h1>
       </li>
-      <NestedList array={spec} diagnostics={diagnostics} element={[]} />
+      <NestedList spec={spec} diagnostics={diagnostics} element={[]} />
     </ul>
   );
 }
@@ -57,23 +58,20 @@ function getDiagnosticInfoForParent(diagnostics: IRuleResult[], element: string[
     }, new NodeInfo(false, false));
 }
 
-class NestedList extends React.Component<any> {
-  render() {
-    let { array, diagnostics, element } = this.props;
-    return (
-      <ul>
-        {Object.keys(array).map((el: string, index: number) => {
-          let info = getDiagnosticInfoForParent(diagnostics, [...element, el]);
-          return (
-            <li key={index} className={info.getClasses()}>
-              <span>{el}</span>
-              {(array[el].constructor === Object || array[el].constructor === Array) && (
-                <NestedList array={array[el]} diagnostics={diagnostics} element={[...element, el]} />
-              )}
-            </li>
-          );
-        })}
-      </ul>
-    );
-  }
+function NestedList({ spec, diagnostics, element }: TreeViewProps) {
+  return (
+    <ul>
+      {Object.keys(spec).map((el: string, index: number) => {
+        let info = getDiagnosticInfoForParent(diagnostics, [...element, el]);
+        return (
+          <li key={index} className={info.getClasses()}>
+            <span>{el}</span>
+            {(spec[el].constructor === Object || spec[el].constructor === Array) && (
+              <NestedList spec={spec[el]} diagnostics={diagnostics} element={[...element, el]} />
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  );
 }

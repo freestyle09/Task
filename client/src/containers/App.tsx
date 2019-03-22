@@ -11,6 +11,6 @@ export class App extends React.Component<{}, { spec: any }> {
   }
 
   render() {
-    return <TreeView spec={this.state.spec} diagnostics={diagnose(this.state.spec)} />;
+    return <TreeView spec={this.state.spec} diagnostics={diagnose(this.state.spec)} element={[]} />;
   }
 }
