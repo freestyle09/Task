@@ -4,6 +4,11 @@ import { IRuleResult } from '@stoplight/spectral';
 export interface TreeViewProps extends React.HTMLProps<HTMLUListElement> {
   spec: any;
   diagnostics: IRuleResult[];
+}
+
+interface NestedListProps extends React.HTMLProps<HTMLUListElement> {
+  spec: any;
+  diagnostics: IRuleResult[];
   element: any[];
 }
 
@@ -58,7 +63,7 @@ function getDiagnosticInfoForParent(diagnostics: IRuleResult[], element: string[
     }, new NodeInfo(false, false));
 }
 
-function NestedList({ spec, diagnostics, element }: TreeViewProps) {
+function NestedList({ spec, diagnostics, element }: NestedListProps) {
   return (
     <ul>
       {Object.keys(spec).map((el: string, index: number) => {
